@@ -24,6 +24,7 @@ class UsuariosController {
 		
 		#busca 1 registro
 		$send['data'] = null;
+		#se for diferente de nulo é porque estou editando o registro
 		if ($id != null){
 			$send['data'] = $model->findById($id);
 		}
@@ -49,7 +50,7 @@ class UsuariosController {
 	function deletar(int $id){
 		
 		$model = new Usuario();
-		$id = $model->delete($id);
+		$model->delete($id);
 
 		redirect("usuarios/index/");
 	}
