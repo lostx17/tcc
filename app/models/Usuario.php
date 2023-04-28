@@ -24,18 +24,35 @@ class Usuario extends Model {
     }
 
     public function save($data){
-        $stmt = $this->pdo->prepare("insert into usuarios (nome, dataNascimento, ativado, tipo) 
-                                        values 
+        $stmt = $this->pdo->prepare("INSERT INTO usuarios (nome, dataNascimento, ativado, tipo) 
+                                        VALUES 
                                     (:nome, :dataNascimento, :ativado, :tipo)");
-        $stmt->execute($data);
+        if ($stmt->execute($data)) {
+            return $this->pdo->lastInsertId();
+        } else {
+            return false;
+        }
+    }
 
-        return $this->pdo->lastInsertId();
+    public function update($id, $data){
+        #seta a ID
+        $data["id"] = $id;
+
+        $stmt = $this->pdo->prepare("UPDATE usuarios SET 
+                                    (nome, dataNascimento, ativado, tipo) 
+                                        VALUES 
+                                    (:nome, :dataNascimento, :ativado, :tipo)
+                                        WHERE id = :id");
+        if ($stmt->execute($data)) {
+            return $this->pdo->lastInsertId();
+        } else {
+            return false;
+        }
     }
 
     public function delete($id){
-        $stmt = $this->pdo->prepare("delete from usuarios where id = :id");
-        $stmt->execute(["id"=>$id]);
-        return true;
+        $stmt = $this->pdo->prepare("DELETE FROM usuarios WHERE id = :id");
+        return $stmt->execute(["id"=>$id]);
     }
     
 }

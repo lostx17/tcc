@@ -38,10 +38,15 @@ class UsuariosController {
 	}
 
 	
-	function salvar(){
+	function salvar($id=null){
 
 		$model = new Usuario();
-		$id = $model->save($_POST);
+		
+		if ($id != null){
+			$id = $model->save($_POST);
+		} else {
+			$id = $model->update($id, $_POST);
+		}
 		
 		redirect("usuarios/index/$id");
 	}
@@ -49,7 +54,7 @@ class UsuariosController {
 	function deletar(int $id){
 		
 		$model = new Usuario();
-		$id = $model->delete($id);
+		$model->delete($id);
 
 		redirect("usuarios/index/");
 	}
