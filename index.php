@@ -114,6 +114,12 @@ $local = str_replace("index.php","", $_SERVER["SCRIPT_NAME"]);
 $parts = str_replace($local,"", $_SERVER["REQUEST_URI"]);
 $parts = trim(str_replace("index.php","", $parts),"/");
 
+if (strstr($parts,"#")){
+	$parts = substr($parts,0,strpos($parts,"#"));
+}
+if (strstr($parts,"?")){
+	$parts = substr($parts,0,strpos($parts,"?"));
+}
 
 if ($parts != ""){
 	$parts = explode("/", $parts );
