@@ -2,7 +2,7 @@
 
 
 
-<form method='POST' action='<?=route('usuarios/salvar')?>'>
+<form method='POST' action='<?=route('usuarios/salvar/'._v($data,"id"))?>'>
 
 <label class='col-md-6'>
     Nome

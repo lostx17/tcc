@@ -39,12 +39,13 @@ class Usuario extends Model {
         $data["id"] = $id;
 
         $stmt = $this->pdo->prepare("UPDATE usuarios SET 
-                                    (nome, dataNascimento, ativado, tipo) 
-                                        VALUES 
-                                    (:nome, :dataNascimento, :ativado, :tipo)
-                                        WHERE id = :id");
+                                        nome = :nome, 
+                                        dataNascimento = :dataNascimento, 
+                                        ativado = :ativado, 
+                                        tipo = :tipo 
+                                    WHERE id = :id");
         if ($stmt->execute($data)) {
-            return $this->pdo->lastInsertId();
+            return $id;
         } else {
             return false;
         }
