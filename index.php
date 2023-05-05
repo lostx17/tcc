@@ -9,9 +9,16 @@ require 'app/sys/util.php';
 #require 'sys/Pagination.php';
 #require 'sys/validate.php';
 #require 'sys/messages.php';
-require 'app/models/Model.php';
-require 'app/models/Usuario.php';
 
+#importa todos os models automaticamente
+require 'app/models/Model.php';
+$path = "app/models/";
+$handle = opendir($path);
+while($file = readdir($handle)){
+	if ($file != "Model.php" && is_file($path.$file)){
+		require $path.$file;
+	}
+}
 
 $server_url = "http://".$_SERVER['SERVER_NAME'] . explode("index.php",$_SERVER['SCRIPT_NAME'])[0];
 
