@@ -5,6 +5,7 @@ namespace models;
 class Usuario extends Model {
 
     protected $table = "usuarios";
+    #nao esqueça da ID
     protected $fields = ["id","nome","dataNascimento","tipo","ativado"];
     
     public function findById($id){
@@ -47,12 +48,11 @@ class Usuario extends Model {
     }
 
     public function update($id, $data){
-        #seta a ID
-        $data["id"] = $id;
-
         #filtra, para que só tenha nos values os campos que realmente existem na tabela
         $values = array_intersect_key($data, array_flip($this->fields));
         $fields = array_keys($values);
+        #seta a ID
+        $values["id"] = $id;
 
         #constroi o SQL do UPDATE
         $sql ="UPDATE {$this->table} SET ";
